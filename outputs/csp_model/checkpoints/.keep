@@ -1,0 +1,2 @@
+# Place trained CSP model checkpoint here.
+# Train with: bash scripts/train_csp_model.sh

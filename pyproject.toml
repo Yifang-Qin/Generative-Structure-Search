@@ -1,0 +1,111 @@
+[tool.uv]
+environments = ["sys_platform == 'linux'"]
+
+[tool.ruff]
+line-length = 100
+include = ["*.py", "*.pyi"]
+exclude = [
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".tox",
+    ".venv",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+]
+
+select = ["E", "F", "I", "W", "N", "B", "C4", "UP", "RUF"]
+ignore = ["E402"]
+
+
+[tool.ruff.isort]
+known-first-party = ["mattergen"]
+
+[project]
+name = "gss"
+version = "1.0"
+requires-python = "== 3.10.*"
+
+dependencies = [
+"ase==3.27.0",
+"autopep8",
+"cachetools",
+"contextlib2",
+"emmet-core>=0.84.2",  # keep up-to-date together with pymatgen, atomate2
+"fire", # see https://github.com/google/python-fire
+"huggingface-hub",
+"hydra-core==1.3.1",
+"hydra-joblib-launcher==1.1.5",
+"jupyterlab>=4.2.5",
+"lmdb",
+"matplotlib==3.10.8",
+"matscipy>=0.7.0",
+"mattersim==1.2.1",
+"monty==2025.3.3",
+"notebook>=7.2.2",
+"numpy==2.2.6",
+"omegaconf==2.3.0",
+"pymatgen==2025.10.7",
+"pylint",
+"pytest",
+"pytorch-lightning==2.0.6",
+"seaborn>=0.13.2",  # for plotting
+"setuptools<82",
+"SMACT",
+"sympy>=1.11.1",
+"torch==2.6.0+cu124; sys_platform == 'linux'", 
+"torch==2.6.0; sys_platform == 'darwin'",
+"torch_cluster",
+"torch_geometric>=2.5",
+"torch_scatter",
+"torch_sparse",
+"tqdm",
+"wandb==0.22.0",
+
+"tensorboardX",
+"h5py==3.15.1",
+"fairchem-core",
+"pymatviz",
+"plotly==5.24.1", # for pymatviz
+]
+
+[tool.setuptools.packages.find]
+include = ["mattergen*", "gss*", "rss_utils*", "sample_eval_utils*"]
+
+[tool.uv.sources]
+torch = { index = "pytorch_linux",  marker = "sys_platform == 'linux'" }
+torchvision = { index = "pytorch_linux",  marker = "sys_platform == 'linux'" }
+torchaudio = { index = "pytorch_linux",  marker = "sys_platform == 'linux'" }
+pyg-lib = [
+  { url = "https://data.pyg.org/whl/torch-2.6.0%2Bcu124/pyg_lib-0.5.0%2Bpt26cu124-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/pyg_lib-0.4.0%2Bpt24-cp312-cp312-macosx_14_0_universal2.whl",  marker = "sys_platform == 'darwin'" }
+]
+torch_cluster = [
+  { url = "https://data.pyg.org/whl/torch-2.6.0%2Bcu124/torch_cluster-1.6.3%2Bpt26cu124-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_cluster-1.6.3-cp312-cp312-macosx_10_9_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+torch_scatter = [
+  { url = "https://data.pyg.org/whl/torch-2.6.0%2Bcu124/torch_scatter-2.1.2%2Bpt26cu124-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_scatter-2.1.2-cp312-cp312-macosx_10_9_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+torch_sparse = [
+  { url = "https://data.pyg.org/whl/torch-2.6.0%2Bcu124/torch_sparse-0.6.18%2Bpt26cu124-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_sparse-0.6.18-cp312-cp312-macosx_11_0_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+[[tool.uv.index]]
+name = "pytorch_linux"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+
+[project.scripts]
+gss-propose = "gss.cli:propose"
+gss-search = "gss.cli:search"
+gss-relax = "gss.cli:relax"
+gss-dedup = "gss.cli:dedup"
+gss-evaluate = "gss.cli:evaluate"

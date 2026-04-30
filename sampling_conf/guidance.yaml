@@ -1,0 +1,15 @@
+_target_: mattergen.diffusion.sampling.guide_utils.guidance_conf.GuidanceConf
+
+guidance_method: null
+pos_guide_coef: null
+cell_guide_coef: null
+t_mid: 750
+t_scale: 250
+guidance_steps: null
+n_iter: 1
+n_recur: 1
+tfg_rho: 0.0
+tfg_gamma: 0.0
+tfg_mu: 2.5
+tau_guidance: false
+tau: 0.5
