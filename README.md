@@ -53,14 +53,14 @@ GSS depends on the following model weights (none are bundled with this repositor
 
 **UMA** can be obtained from the [FAIRChem repository](https://github.com/facebookresearch/fairchem) (optional, for alternative force field backend).
 
-**CSP model**: the pretrained diffusion checkpoint (~460 MB) is hosted on Zenodo (DOI: [10.5281/zenodo.19652325](https://doi.org/10.5281/zenodo.19652325)). Download and place it as follows:
+**CSP model**: the pretrained diffusion checkpoint (~460 MB) is hosted on Zenodo (DOI: [10.5281/zenodo.19651875](https://doi.org/10.5281/zenodo.19651875), which always resolves to the latest version). Download and place it as follows:
 
 ```bash
 wget -O outputs/csp_model/checkpoints/last.ckpt \
-  "https://zenodo.org/records/19652325/files/last.ckpt?download=1"
+  "https://zenodo.org/records/22847747/files/last.ckpt?download=1"
 ```
 
-Alternatively, download manually from the [Zenodo record](https://zenodo.org/records/19652325) and place the file at `outputs/csp_model/checkpoints/last.ckpt`. The Zenodo record also ships `config.yaml`, which is identical to the one already tracked in this repository; no separate download is needed.
+Alternatively, download manually from the [Zenodo record](https://doi.org/10.5281/zenodo.19651875) and place the file at `outputs/csp_model/checkpoints/last.ckpt`. The Zenodo record also ships `config.yaml`, which is identical to the one already tracked in this repository; no separate download is needed.
 
 **AIRSS**: `gss-propose` requires the [AIRSS](https://www.mtg.msm.cam.ac.uk/Codes/AIRSS) toolkit. Install via [conda](https://github.com/conda-forge/airss-feedstock) or build from [source](https://airss-docs.github.io/getting-started/installation/). Not needed if you skip RSS proposal generation.
 
