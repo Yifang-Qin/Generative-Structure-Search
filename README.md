@@ -34,7 +34,7 @@ Three guidance strategies are implemented:
 - **Python**: 3.10 (`pyproject.toml` pins `== 3.10.*`).
 - **GPU**: an NVIDIA GPU with a driver that supports CUDA 12.4 (driver >= 550). The CUDA 12.4 runtime ships inside the PyTorch wheel (`torch==2.6.0+cu124`), so no separate CUDA toolkit is needed. Tested on NVIDIA H20 (96 GB, driver 580.95). The quick demo below peaks at about 9 GB of GPU memory; the default `gss-search` batch of 512 structures needs more.
 - **Disk and RAM**: about 6.6 GB for the virtual environment plus 0.55 GB of model weights; the quick demo uses less than 2.5 GB of host RAM.
-- **Software dependencies**: exact versions are pinned in `pyproject.toml` and `uv.lock`. The main ones are torch 2.6.0+cu124, torch-geometric 2.7 (2.8.1 at the time of testing), torch-scatter 2.1.2 / torch-sparse 0.6.18 / torch-cluster 1.6.3 (`pt26cu124` wheels from data.pyg.org), pytorch-lightning 2.0.6, hydra-core 1.3.1, numpy 2.2.6, ase 3.27.0, pymatgen 2025.10.7 and mattersim 1.2.1.
+- **Software dependencies**: exact versions are pinned in `pyproject.toml` and `uv.lock`.
 - **Non-standard hardware**: none beyond the CUDA GPU.
 
 ## Installation
@@ -48,7 +48,7 @@ source .venv/bin/activate
 uv pip install -e .
 ```
 
-Typical install time: 5-10 min on a workstation with a 100 Mbps connection. About 3 GB of wheels are downloaded (PyTorch, the CUDA runtime libraries and Triton account for most of it) and the environment takes 6.6 GB on disk. On our test server (Ubuntu 22.04, fast PyPI mirror) the whole sequence took 3 min: `pip install uv` 1 min, `uv venv` a few seconds, `uv pip install -e .` 2 min. If `uv` is not found after `pip install uv`, add `~/.local/bin` to your `PATH` or call it as `python -m uv`.
+Typical install time: 5-10 min on a workstation with a 100 Mbps connection (about 3 GB of wheels are downloaded; the environment takes 6.6 GB on disk). If `uv` is not found after `pip install uv`, add `~/.local/bin` to your `PATH` or call it as `python -m uv`.
 
 ### Prerequisites
 
@@ -191,24 +191,13 @@ gss-evaluate --composition si --config mi
 |------|---------------|-----------|-----------------|
 | `gss-search` | `exp_results/si/sampled/mi/generated_crystals.extxyz` (64 structures) and `generated_crystals_cif.zip` (`gen_0.cif` ... `gen_63.cif`) | ~6.5 min | 4.5 GB |
 | `gss-relax` | `exp_results/si/relaxed/mi/Si8.xyz` (converged structures) and `exp_results/si/unconverged/mi/Si8.xyz`; prints `Relaxation finished, converged: 61 / 64` | ~2.5 min | 3.2 GB |
-| `gss-evaluate` | nothing on disk; prints the three metric blocks below | ~2 min | 9.3 GB |
+| `gss-evaluate` | nothing on disk; prints coverage, energy efficiency and sample budget | ~2 min | 9.3 GB |
 
-Evaluation printout from the run above (abridged; diffusion sampling is stochastic, so expect the same order of magnitude rather than identical numbers):
+Key lines of the `gss-evaluate` printout from this run (diffusion sampling is stochastic, so expect the same order of magnitude rather than identical numbers):
 
 ```
-=== Computing coverage ===
-Number of sampled: 61, reference: 281
-Filtered samples: 61, reference: 230
 Coverage rate: 0.6913 (159/230 = 69.13%)
-
-=== Computing energy efficiency ===
-Sampled average potential energy (< -4.748 eV/atom): -5.1652 eV/atom
 Sampled ratio of low-energy structures (< -5.309 eV/atom): 0.1311
-
-=== Computing sample budget ===
-Number of filtered reference structures: 7
-Unable to reach reference coverage threshold, only 6 / 7 matched (target_count=7)
-Sample budget to cover references in window (N_ref=7, target_ratio=1.000, avg over 10 runs): 0.00
 ```
 
 With only 64 samples the budget metric usually reports `0.00` (not every low-energy reference is hit). The paper protocol uses the `gss-search` defaults (`--batch-size 512 --max-samples 1024`, i.e. 16x more samples) and AIRSS proposals from `gss-propose`.
