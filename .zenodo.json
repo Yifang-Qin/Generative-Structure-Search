@@ -1,0 +1,52 @@
+{
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Qin, Yifang",
+      "affiliation": "School of Computer Science, Peking University, Beijing, China"
+    },
+    {
+      "name": "Shi, Yu",
+      "affiliation": "Zhongguancun Academy, Beijing, China"
+    },
+    {
+      "name": "Tan, Junfu",
+      "affiliation": "School of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta, GA, USA"
+    },
+    {
+      "name": "Liu, Chang",
+      "affiliation": "Zhongguancun Academy, Beijing, China"
+    },
+    {
+      "name": "Zhang, Ming",
+      "affiliation": "School of Computer Science, Peking University, Beijing, China"
+    },
+    {
+      "name": "Lu, Ziheng",
+      "affiliation": "Zhongguancun Academy, Beijing, China; Kairos Materials, Beijing, China"
+    }
+  ],
+  "title": "GSS: Generative Structure Search for crystal structures",
+  "description": "<p>Code for crystal structure search with Generative Structure Search (GSS), which guides a diffusion generative model with energy gradients from a machine-learning force field during sampling. It accompanies the article \"Generative structure search for efficient and diverse discovery of molecular and crystal structures\" and contains the sampling, random structure search, relaxation and evaluation pipelines used for the periodic-system experiments. Pretrained checkpoints and reference structures are archived separately at https://doi.org/10.5281/zenodo.19651875. The molecular case study is in GSS-mol (https://github.com/Yifang-Qin/GSS-mol).</p>",
+  "keywords": [
+    "crystal structure prediction",
+    "diffusion models",
+    "machine-learning force fields",
+    "structure search"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.19651875",
+      "relation": "references",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/Yifang-Qin/GSS-mol",
+      "relation": "isSupplementedBy",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}
